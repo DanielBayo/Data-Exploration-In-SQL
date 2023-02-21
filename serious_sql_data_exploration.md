@@ -4,7 +4,8 @@
 SELECT *
 FROM dvd_rentals.language;
 ```
-* Output:
+** Output: **
+
 |language_id|name|last_update|
 |:----|:----|:----|
 |1|English             |2006-02-15T05:02:19.000Z|
@@ -21,7 +22,8 @@ SELECT
     name
 FROM dvd_rentals.language
 ```
-* Output:
+** Output: **
+
 |language_id|name|
 |:----|:----|
 |1|English             |
@@ -37,7 +39,8 @@ SELECT *
 FROM dvd_rentals.actor
 LIMIT 10;
 ```
-* Output:
+** Output: **
+
 |actor_id|first_name|last_name|last_update|
 |:----|:----|:----|:----|
 |1|PENELOPE|GUINESS|2006-02-15T04:34:33.000Z|
@@ -58,7 +61,8 @@ FROM dvd-rentals.country
 ORDER BY country
 LIMIT 5;
 ```
-* Output:
+** Output: **
+
 |country|
 |:----|
 |Afghanistan|
@@ -73,3 +77,15 @@ SELECT
     total_sales
 FROM dvd_rentals.sales_by_film_category
 ORDER BY 1
+LIMIT 5;
+```
+** Output : **
+
+|total_sales|
+|:----|
+|3417.72|
+|3549.64|
+|3639.59|
+|3655.55|
+|3722.54|
+
