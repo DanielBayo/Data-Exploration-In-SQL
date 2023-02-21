@@ -1,4 +1,4 @@
-1. Show all records from the language table from the dvd_rentals schema
+1. Show all records from the `language` table from the `dvd_rentals` schema
 
 ```sql
 SELECT *
@@ -15,7 +15,7 @@ FROM dvd_rentals.language;
 |5|French              |2006-02-15T05:02:19.000Z|
 |6|German              |2006-02-15T05:02:19.000Z|
 
-2. Show only the language_id and name columns from the language table
+2. Show only the `language_id` and `name` columns from the `language` table
 ```sql
 SELECT
     language_id,
@@ -33,7 +33,7 @@ FROM dvd_rentals.language
 |5|French              |
 |6|German|
 
-3. Show the first 10 rows from the actor tables
+3. Show the first 10 rows from the `actor` tables
 ```sql
 SELECT *
 FROM dvd_rentals.actor
@@ -54,7 +54,7 @@ LIMIT 10;
 |9|JOE|SWANK|2006-02-15T04:34:33.000Z|
 |10|CHRISTIAN|GABLE|2006-02-15T04:34:33.000Z|
 
-4. What are the first 5 values in the country column from the country table by alphabetical order?
+4. What are the first 5 values in the `country` column from the `country` table by alphabetical order?
 ```sql
 SELECT country
 FROM dvd-rentals.country
@@ -71,7 +71,7 @@ LIMIT 5;
 |Angola|
 |Anguilla|
 
-5. What are the 5 lowest total_sales values in the sales_by_film_category table?
+5. What are the 5 lowest `total_sales` values in the `sales_by_film_category` table?
 ```sql
 SELECT
     total_sales
@@ -89,7 +89,7 @@ LIMIT 5;
 |3655.55|
 |3722.54|
 
-6. What are the first 5 values in reverse alphabetical order in the country column from country table
+6. What are the first 5 values in reverse alphabetical order in the `country`column from `country` table
 
 ```sql
 SELECT
@@ -109,7 +109,7 @@ LIMIT 5;
 |Virgin Islands| U.S.|
 |Vietnam|
 
-7. Which category had the lowest total_sales value according to the sales_by_film_category table? what was the total_sales value?
+7. Which `category` had the lowest `total_sales` value according to the `sales_by_film_category` table? what was the total_sales value?
 ```sql
 SELECT
     category,
@@ -120,6 +120,8 @@ LIMIT 1;
 ```
 **Output:**
 
-|0.category|0.total_sales|
+|category|total_sales|
 |:----|:----|
 |Music|3417.72|
+
+8. What was the latest `payment_date` of all dvd rentals in the `payment` table
