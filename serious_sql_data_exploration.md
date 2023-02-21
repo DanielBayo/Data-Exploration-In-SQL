@@ -4,7 +4,7 @@
 SELECT *
 FROM dvd_rentals.language;
 ```
-** Output: **
+**Output:**
 
 |language_id|name|last_update|
 |:----|:----|:----|
@@ -22,7 +22,7 @@ SELECT
     name
 FROM dvd_rentals.language
 ```
-** Output: **
+**Output:**
 
 |language_id|name|
 |:----|:----|
@@ -39,7 +39,7 @@ SELECT *
 FROM dvd_rentals.actor
 LIMIT 10;
 ```
-** Output: **
+**Output:**
 
 |actor_id|first_name|last_name|last_update|
 |:----|:----|:----|:----|
@@ -61,7 +61,7 @@ FROM dvd-rentals.country
 ORDER BY country
 LIMIT 5;
 ```
-** Output: **
+**Output:**
 
 |country|
 |:----|
@@ -79,7 +79,7 @@ FROM dvd_rentals.sales_by_film_category
 ORDER BY 1
 LIMIT 5;
 ```
-** Output : **
+**Output :**
 
 |total_sales|
 |:----|
@@ -89,3 +89,37 @@ LIMIT 5;
 |3655.55|
 |3722.54|
 
+6. What are the first 5 values in reverse alphabetical order in the country column from country table
+
+```sql
+SELECT
+    country
+FROM dvd_rentals.country
+ORDER BY country DESC
+LIMIT 5;
+```
+
+**Output:**
+
+|country|
+|:----|
+|Zambia|
+|Yugoslavia|
+|Yemen|
+|Virgin Islands| U.S.|
+|Vietnam|
+
+7. Which category had the lowest total_sales value according to the sales_by_film_category table? what was the total_sales value?
+```sql
+SELECT
+    category,
+    total_sales
+FROM dvd_rentals.sales_by_film_category
+ORDER BY total_sales
+LIMIT 1;
+```
+**Output:**
+
+|0.category|0.total_sales|
+|:----|:----|
+|Music|3417.72|
