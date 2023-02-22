@@ -248,3 +248,44 @@ LIMIT 5;
 |597|40792|
 |**596**|**31390**|
 
+## RECORD COUNTS & DISTINCT VALUES
+
+14. How many row are there in the film_list table?
+
+```sql
+SELECT 
+  COUNT(*) AS row_count
+FROM dvd_rentals.film_list
+```
+**Output**
+|row_count|
+|:----|
+|997|
+
+15. What are the unique values for the rating column in the film table?
+
+```sql
+SELECT DISTINCT
+  rating
+FROM dvd_rentals.film_list
+```
+**Output**
+|rating|
+|:----|
+|NC-17|
+|R|
+|PG-13|
+|PG|
+|G|
+
+16. How many unique category values are there in the film_list table?
+
+```sql
+SELECT 
+COUNT(DISTINCT category) AS unique_category_count
+FROM dvd_rentals.film_list;
+```
+**Output**
+|unique_category_count|
+|:----|
+|16|
