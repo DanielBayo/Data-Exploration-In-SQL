@@ -128,7 +128,10 @@ LIMIT 1;
 
 **Output:**
 
-[{"payment_date":"2006-02-14T15:16:03.000Z"}]
+|payment_date|
+|:----|
+|2006-02-14T15:16:03.000Z|
+
 
 9. Which customer_id had the latest `rental_date` for `inventory_id`=1 and 2?
 
@@ -209,4 +212,39 @@ LIMIT 10;
 |SWEET BROTHERHOOD|185|27.99|R|
 |GANGS PRIDE|185|27.99|PG-13|
 |SOLDIERS EVOLUTION|185|27.99|R|
+
+12. Who was the `manager` of the store with the highest `total_sales` in the `dvd_rentals.sales_by_store` table?
+
+```sql
+SELECT 
+  manager,
+  total_sales
+FROM dvd_rentals.sales_by_store
+ORDER BY total_sales DESC;
+```
+**Output**
+|manager|total_sales|
+|:----|:----|
+|`**Jon Stephens**`|33726.77|
+|Mike Hillyer|33689.74|
+
+13. What is the `postal_code` of the city with the 5th highest `city_id` in the `dvd_rentals.address` table?
+
+```sql
+SELECT 
+  city_id,
+  postal_code
+FROM dvd_rentals.address
+ORDER BY city_id DESC
+LIMIT 5;
+```
+
+**Output**
+|city_id|postal_code|
+|:----|:----|
+|600|75559|
+|599|39976|
+|598|95093|
+|597|40792|
+|**596**|**31390**|
 
