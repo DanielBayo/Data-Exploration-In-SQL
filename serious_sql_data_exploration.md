@@ -124,4 +124,89 @@ LIMIT 1;
 |:----|:----|
 |Music|3417.72|
 
-8. What was the latest `payment_date` of all dvd rentals in the `payment` table
+8. What was the latest `payment_date` of all dvd rentals in the `payment` table?
+
+**Output:**
+
+[{"payment_date":"2006-02-14T15:16:03.000Z"}]
+
+9. Which customer_id had the latest `rental_date` for `inventory_id`=1 and 2?
+
+```sql
+SELECT 
+  customer_id,
+  inventory_id,
+  rental_date
+FROM dvd_rentals.rental
+ORDER BY inventory_id, rental_date DESC
+LIMIT 8;
+```
+**Output:**
+
+|customer_id|inventory_id|rental_date|
+|:----|:----|:----|
+|279|1|2005-08-21T21:27:43.000Z|
+|518|1|2005-08-02T20:13:10.000Z|
+|431|1|2005-07-08T19:03:15.000Z|
+|359|2|2005-08-23T01:01:01.000Z|
+|581|2|2005-07-30T22:02:34.000Z|
+|161|2|2005-07-07T10:41:31.000Z|
+|170|2|2005-06-17T20:24:00.000Z|
+|411|2|2005-05-30T20:21:07.000Z|
+
+10. What is the name of the `category` with the highest `category_id` in the `dvd_rentals.category` table?
+
+```sql
+SELECT 
+  category_id,
+  name
+FROM dvd_rentals.category
+ORDER BY category_id DESC
+LIMIT 1;
+```
+**Output**
+|category_id|name|
+|:----|:----|
+|16|Travel|
+|15|Sports|
+|14|Sci-Fi|
+|13|New|
+|12|Music|
+|11|Horror|
+|10|Games|
+|9|Foreign|
+|8|Family|
+|7|Drama|
+|6|Documentary|
+|5|Comedy|
+|4|Classics|
+|3|Children|
+|2|Animation|
+|1|Action|
+
+11. For the films with the longest length, what is the title of the "R" rated film with the lowest `replacement_cost` in `dvd_rentals.film` table?
+
+```sql
+SELECT 
+  title,
+  length,
+  replacement_cost,
+  rating
+FROM dvd_rentals.film
+ORDER BY length DESC,replacement_cost
+LIMIT 10;
+```
+**Output**
+|title|length|replacement_cost|rating|
+|:----|:----|:----|:----|
+|CONTROL ANTHEM|185|9.99|G|
+|CHICAGO NORTH|185|11.99|PG-13|
+|DARN FORRESTER|185|14.99|G|
+|**HOME PITY**|185|15.99|R|
+|MUSCLE BRIGHT|185|23.99|G|
+|POND SEATTLE|185|25.99|PG-13|
+|WORST BANGER|185|26.99|PG|
+|SWEET BROTHERHOOD|185|27.99|R|
+|GANGS PRIDE|185|27.99|PG-13|
+|SOLDIERS EVOLUTION|185|27.99|R|
+
