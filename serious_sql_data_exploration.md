@@ -332,3 +332,67 @@ ORDER BY frequency DESC;
 |PG|194|19.46|
 |R|193|19.36|
 |G|177|17.75|
+
+19. What are the 5 most frequent rating and category combinations in the film_list table?
+
+```sql
+SELECT
+  rating,
+  category,
+  COUNT(*) AS frequency
+FROM dvd_rentals.film_list
+GROUP BY rating, category
+ORDER BY frequency DESC
+LIMIT 5;
+```
+
+**Output:**
+||rating|category|frequency|
+|:----|:----|:----|
+|PG-13|Drama|22|
+|NC-17|Music|20|
+|PG-13|Foreign|19|
+|PG-13|Animation|19|
+|PG|Family|18|
+
+20. Which `actor_id` has the most number of unique `film_id` records in the `dvd_rentals.film_actor` table?
+
+```sql
+SELECT
+  actor_id,
+  COUNT(DISTINCT film_id) AS frequency
+FROM dvd_rentals.film_actor
+GROUP BY actor_id
+ORDER BY frequency DESC
+LIMIT 10;
+```
+**Output:**
+|actor_id|frequency|
+|:----|:----|
+|107|42|
+|102|41|
+|198|40|
+|181|39|
+|23|37|
+|81|36|
+|144|35|
+|158|35|
+|37|35|
+|60|35|
+
+21. How many distinct `fid` values are there for the 3rd most common `price` value in the `dvd_rentals.nicer_but_slower_film_list` table?
+
+```sql
+SELECT 
+  price,
+  COUNT( DISTINCT fid) AS distinct_count
+FROM dvd_rentals.nicer_but_slower_film_list
+GROUP BY price
+ORDER BY distinct_count DESC;
+```
+**Output:**
+|price|distinct_count|
+|:----|:----|
+|0.99|340|
+|4.99|334|
+|2.99|323|
