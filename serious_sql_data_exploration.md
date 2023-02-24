@@ -289,3 +289,46 @@ FROM dvd_rentals.film_list;
 |unique_category_count|
 |:----|
 |16|
+
+17. What is the Frequency of values in the rating column in the `film_list` table?
+
+```sql
+SELECT
+  rating,
+  COUNT(*) AS frequency
+FROM dvd_rentals.film_list
+GROUP BY rating
+ORDER ;
+```
+
+**Output:**
+
+|rating|record_count|
+|:----|:----|
+|NC-17|210|
+|R|193|
+|PG-13|223|
+|PG|194|
+|G|177|
+
+18. What is the percentage of values in the rating column in the `film_list` table?
+```sql
+SELECT
+  rating,
+  COUNT(*) AS frequency,
+  ROUND(
+    100 * COUNT(*)::NUMERIC / SUM(COUNT(*)) OVER (),
+    2
+  ) AS percentage
+FROM dvd_rentals.film_list
+GROUP BY rating
+ORDER BY frequency DESC;
+```
+**Output**
+|rating|frequency|percentage|
+|:----|:----|:----|
+|PG-13|223|22.37|
+|NC-17|210|21.06|
+|PG|194|19.46|
+|R|193|19.36|
+|G|177|17.75|
