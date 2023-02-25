@@ -396,3 +396,81 @@ ORDER BY distinct_count DESC;
 |0.99|340|
 |4.99|334|
 |2.99|**323**|
+
+22. How many unique `country_id` values exist in the `dvd_rentals.city` table?
+
+```sql
+SELECT 
+  COUNT(DISTINCT country_id) As number_of_countries
+FROM dvd_rentals.city;
+```
+**Output:**
+|number_of_countries|
+|:----|
+|109|
+
+23. What percentage of overall `total_sales` does the Sports `category` make up in the `dvd_rentals.sales_by_film_category` table?
+
+```sql
+SELECT 
+  category,
+  total_sales,
+  ROUND(
+  total_sales*100:: NUMERIC /SUM(total_sales) OVER()
+  ,2) AS percentage_total
+FROM dvd_rentals.sales_by_film_category
+GROUP BY category,total_sales
+ORDER BY percentage_total DESC;
+```
+**Output:**
+|category|total_sales|percentage_total|
+|:----|:----|:----|
+|Sports|5314.21|7.88|
+|Sci-Fi|4756.98|7.06|
+|Animation|4656.30|6.91|
+|Drama|4587.39|6.80|
+|Comedy|4383.58|6.50|
+|Action|4375.85|6.49|
+|New|4352.61|6.46|
+|Games|4281.33|6.35|
+|Foreign|4270.67|6.33|
+|Family|4235.03|6.28|
+|Documentary|4217.52|6.26|
+|Horror|3722.54|5.52|
+|Children|3655.55|5.42|
+|Classics|3639.59|5.40|
+|Travel|3549.64|5.27|
+|Music|3417.72|5.07|
+
+24. What percentage of unique `fid` values are in the Children `category` in the `dvd_rentals.film_list` table?
+
+```sql
+SELECT
+  category,
+  ROUND(
+  100*COUNT(DISTINCT fid):: NUMERIC / SUM(COUNT(DISTINCT fid)) OVER(),
+  2
+  ) AS percentage_of_unique
+FROM dvd_rentals.film_list
+GROUP BY category
+ORDER BY category;
+```
+**Output:**
+|category|percentage_of_unique|
+|:----|:----|
+|Action|6.42|
+|Animation|6.62|
+|Children|6.02|
+|Classics|5.72|
+|Comedy|5.82|
+|Documentary|6.82|
+|Drama|6.12|
+|Family|6.92|
+|Foreign|7.32|
+|Games|6.12|
+|Horror|5.62|
+|Music|5.12|
+|New|6.32|
+|Sci-Fi|6.12|
+|Sports|7.32|
+|Travel|5.62|
