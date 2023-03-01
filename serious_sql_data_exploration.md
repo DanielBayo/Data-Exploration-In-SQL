@@ -615,7 +615,57 @@ LIMIT 10;
 |83|106|
 |76|102|
 
-This also contail a lot of null values.
+This also contain a lot of null values.
+
+Noticed how many 0 values there were for the `measure_value` field and `null` values for both `systolic` and `diastolic` columns? It will be best to further inspect the rows a bit further to check if this only happens for certain `measure` values when the condition measure_value = 0 is met and the systolic and diastolic columns are null.
+
+```sql
+SELECT 
+  measure,
+  COUNT(*) AS frequency
+FROM health.user_logs
+WHERE measure_value = 0
+GROUP BY measure
+ORDER BY frequency DESC;
+```
+|measure|frequency|
+|:----|:----|
+|blood_pressure|562|
+|blood_glucose|8|
+|weight|2|
+
+Let's also compare this with the overall frequency percentage calculated earlier:
+
+|measure|frequency|percentage|
+|:----|:----|:----|
+|blood_glucose|38692|88.15|
+|weight|2782|6.34|
+|blood_pressure|2417|5.51|
+
+Even though the the `measure= blood_pressure` is just about 5.51% of the total records, it's also the measure with most of the `measure_value = 0`. Let's filter with these two conditions,
+
+```sql
+SELECT *
+FROM health.user_logs
+WHERE measure_value = 0
+AND measure = 'blood_pressure';
+```
+|id|log_date|measure|measure_value|systolic|diastolic|
+|:----|:----|:----|:----|:----|:----|
+|ee653a96022cc3878e76d196b1667d95beca2db6|2020-03-18T00:00:00.000Z|blood_pressure|0|115|76|
+|ee653a96022cc3878e76d196b1667d95beca2db6|2020-03-15T00:00:00.000Z|blood_pressure|0|115|76|
+|ee653a96022cc3878e76d196b1667d95beca2db6|2020-02-03T00:00:00.000Z|blood_pressure|0|105|70|
+|0f7b13f3f0512e6546b8d2c0d56e564a2408536a|2020-02-24T00:00:00.000Z|blood_pressure|0|136|87|
+|c7af488f4c8efc0ecdfd6d0c427e7c133bf2f2d9|2020-02-06T00:00:00.000Z|blood_pressure|0|164|84|
+|c7af488f4c8efc0ecdfd6d0c427e7c133bf2f2d9|2020-02-10T00:00:00.000Z|blood_pressure|0|190|94|
+|0f7b13f3f0512e6546b8d2c0d56e564a2408536a|2020-02-07T00:00:00.000Z|blood_pressure|0|125|79|
+|0f7b13f3f0512e6546b8d2c0d56e564a2408536a|2020-02-19T00:00:00.000Z|blood_pressure|0|136|84|
+|0f7b13f3f0512e6546b8d2c0d56e564a2408536a|2020-02-15T00:00:00.000Z|blood_pressure|0|135|89|
+|0f7b13f3f0512e6546b8d2c0d56e564a2408536a|2020-02-27T00:00:00.000Z|blood_pressure|0|138|85|
+
+
+
+
 
 
 
