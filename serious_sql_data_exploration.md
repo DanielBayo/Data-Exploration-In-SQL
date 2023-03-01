@@ -718,6 +718,8 @@ GROUP BY 1;
 |weight|443|
 |blood_glucose|25580|
 
+Yes we can therefore confirm this!
+
 
 
 
