@@ -642,7 +642,7 @@ Let's also compare this with the overall frequency percentage calculated earlier
 |weight|2782|6.34|
 |blood_pressure|2417|5.51|
 
-Even though the the `measure= blood_pressure` is just about 5.51% of the total records, it's also the measure with most of the `measure_value = 0`. Let's filter with these two conditions,
+Even though the `measure= blood_pressure` is just about 5.51% of the total records, it's also the measure with most of the `measure_value = 0`. Let's filter with these two conditions,
 
 ```sql
 SELECT *
@@ -662,6 +662,64 @@ AND measure = 'blood_pressure';
 |0f7b13f3f0512e6546b8d2c0d56e564a2408536a|2020-02-19T00:00:00.000Z|blood_pressure|0|136|84|
 |0f7b13f3f0512e6546b8d2c0d56e564a2408536a|2020-02-15T00:00:00.000Z|blood_pressure|0|135|89|
 |0f7b13f3f0512e6546b8d2c0d56e564a2408536a|2020-02-27T00:00:00.000Z|blood_pressure|0|138|85|
+
+It appears that when the blood pressure is measured sometimes the `measure_value` field is empty and the relevant `systolic` and `diastolic` fields are recorded. It is okay to also look at what happened when the blood pressure is measured and the `measure_value` is not 0.
+
+```sql
+SELECT *
+FROM health.user_logs
+WHERE measure_value != 0
+AND measure = 'blood_pressure'
+LIMIT 10;
+```
+|id|log_date|measure|measure_value|systolic|diastolic|
+|:----|:----|:----|:----|:----|:----|
+|d14df0c8c1a5f172476b2a1b1f53cf23c6992027|2020-10-15T00:00:00.000Z|blood_pressure|140|140|113|
+|9fef7a7b06dea13eac08b2b609a008d6a178d0b7|2020-10-02T00:00:00.000Z|blood_pressure|114|114|80|
+|0b494d455a27f8a2709d7da6c98796ea0e629690|2020-10-19T00:00:00.000Z|blood_pressure|132|132|94|
+|ee653a96022cc3878e76d196b1667d95beca2db6|2020-10-09T00:00:00.000Z|blood_pressure|105|105|68|
+|46d921f1111a1d1ad5dd6eb6e4d0533ab61907c9|2020-04-12T00:00:00.000Z|blood_pressure|149|149|85|
+|46d921f1111a1d1ad5dd6eb6e4d0533ab61907c9|2020-04-10T00:00:00.000Z|blood_pressure|156|156|88|
+|46d921f1111a1d1ad5dd6eb6e4d0533ab61907c9|2020-04-29T00:00:00.000Z|blood_pressure|142|142|84|
+|0f7b13f3f0512e6546b8d2c0d56e564a2408536a|2020-04-07T00:00:00.000Z|blood_pressure|131|131|71|
+|0f7b13f3f0512e6546b8d2c0d56e564a2408536a|2020-04-08T00:00:00.000Z|blood_pressure|128|128|77|
+|abc634a555bbba7d6d6584171fdfa206ebf6c9a0|2020-03-09T00:00:00.000Z|blood_pressure|114|114|76|
+
+It looks like that systolic value is sometimes being used at that measure_value and sometimes the measure_value is 0!
+
+Let’s finish this off by also looking at the null systolic and diastolic values in the same manner:
+```sql
+SELECT
+  measure,
+  COUNT(*)
+FROM health.user_logs
+WHERE systolic IS NULL
+GROUP BY 1;
+```
+|measure|count|
+|:----|:----|
+|weight|443|
+|blood_glucose|25580|
+
+This result confirms that systolic only has non-null records when measure = 'blood_pressure'
+
+Can we confirm this is the fact for the diastolic column too?
+
+```sql
+SELECT
+  measure,
+  COUNT(*)
+FROM health.user_logs
+WHERE diastolic IS NULL
+GROUP BY 1;
+```
+|measure|count|
+|:----|:----|
+|weight|443|
+|blood_glucose|25580|
+
+
+
 
 
 
